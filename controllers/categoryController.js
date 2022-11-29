@@ -42,6 +42,30 @@ module.exports = {
               );
               next(httpError);
         }
-    })
+    }),
+    postCategory: catchAsync(async (req, res, next) => {
+        const { name, description } = req.body;
+        try {
+          const [category, created] = await Category.findOrCreate({
+            where: {
+              name,
+              description,
+            },
+          });
+          endpointResponse({
+            res,
+            message: created
+              ? "category successfully"
+              : "category already exist",
+            body: category,
+          });
+        } catch (error) {
+          const httpError = createHttpError(
+            error.statusCode,
+            `[Error retrieving CategoryPost] - [CategoryPost - POST]: ${error.message}`
+          );
+          next(httpError);
+        }
+      }),
   }
   
