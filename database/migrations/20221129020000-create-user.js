@@ -38,7 +38,7 @@ module.exports = {
                     allowNull: false,
                     type: sequelize.INTEGER,
                     references: {
-                        model: models.User.tableName,
+                        model: models.Role.tableName,
                         key: 'id'
                     }
                 },
