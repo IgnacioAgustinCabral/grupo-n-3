@@ -1,7 +1,8 @@
 'use strict';
+const models = require("../models");
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable('Categories', {
+		await queryInterface.createTable(models.Category.tableName, {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
