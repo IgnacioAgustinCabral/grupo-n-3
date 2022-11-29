@@ -11,6 +11,9 @@
   },
   "scripts": {
     "start": "node app.js",
+    "dev:migrate": "npx sequelize-cli db:migrate",
+    "dev:migrate:undo": "npx sequelize-cli db:migrate:undo:all",
+    "dev:seed": "npx sequelize-cli db:seed:all",
     "test": "mocha ./test/*.js"
   },
   "engines": {
