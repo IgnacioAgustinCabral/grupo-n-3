@@ -10,7 +10,7 @@
     "url": "https://github.com/gabodmc/nodejs-boilerplate"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "dev:migrate": "npx sequelize-cli db:migrate",
     "dev:migrate:undo": "npx sequelize-cli db:migrate:undo:all",
     "dev:seed": "npx sequelize-cli db:seed:all",
@@ -20,6 +20,7 @@
     "node": ">=0.14"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
