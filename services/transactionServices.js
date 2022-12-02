@@ -12,13 +12,18 @@ async function createTransaction(newTransaction) {
 async function findOneTransaction(id) {
   const transaction = await Transaction.findByPk(id)
   if (!transaction) {
-    throw new ErrorObject('Transaction not found', 404)
+    throw new ErrorObject('Transaction not found', 404);
   }
-
-  return transaction
+  return transaction;
 }
+
+async function updateOneTransaction(body, id) {
+  return await Transaction.update(body, { where: { id } });
+}
+
 module.exports = {
   findAllTransaction,
   createTransaction,
-  findOneTransaction
+  findOneTransaction,
+  updateOneTransaction
 };

@@ -2,7 +2,8 @@ const express = require('express');
 const {
     getAllTransactions,
     postTransaction,
-    getTransaction
+    getTransaction,
+    updateTransaction
 } = require('../controllers/transactionControllers');
 const {
     validateRequestBySchema
@@ -14,5 +15,6 @@ const router = express.Router();
 router.get('/', getAllTransactions);
 router.post('/', validateRequestBySchema(postTransactionSchema), postTransaction);
 router.get('/:id', getTransaction);
+router.put('/:id', updateTransaction);
 
 module.exports = router;
