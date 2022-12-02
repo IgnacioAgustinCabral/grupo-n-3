@@ -4,7 +4,8 @@ const { catchAsync } = require('../helpers/catchAsync');
 const {
   findAllTransaction,
   createTransaction,
-  findOneTransaction
+  findOneTransaction,
+  updateOneTransaction
 } = require('../services/transactionServices');
 
 const getAllTransactions = catchAsync(async (req, res, next) => {
@@ -64,8 +65,30 @@ const getTransaction = catchAsync(async (req, res, next) => {
   }
 });
 
+const updateTransaction = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const body = req.body;
+  try {
+    await findOneTransaction(id);
+    await updateOneTransaction(body, id);
+    const updatedTransaction = await findOneTransaction(id);
+    endpointResponse({
+      res,
+      message: 'Transaction updated successfully',
+      body: updatedTransaction,
+    });
+  } catch (error) {
+    const httpError = createHttpError(
+      error.statusCode,
+      `[Error updating Transaction] - [transaction - PUT]: ${error.message}`
+    );
+    next(httpError);
+  }
+});
+
 module.exports = {
   getAllTransactions,
   postTransaction,
-  getTransaction
+  getTransaction,
+  updateTransaction
 };
