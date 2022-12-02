@@ -27,7 +27,15 @@ async function findOrCreateUser({
     },
   });
 }
+async function deleteUser(id) {
+  const userDeleted = await User.destroy({
+    where: { id },
+  });
+  if (!userDeleted) throw new ErrorObject("User not found", 404);
 
+  return userDeleted;
+}
 module.exports = {
   findOrCreateUser,
+  deleteUser,
 };
