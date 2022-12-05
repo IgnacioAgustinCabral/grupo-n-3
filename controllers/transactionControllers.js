@@ -5,7 +5,8 @@ const {
   findAllTransaction,
   createTransaction,
   findOneTransaction,
-  updateOneTransaction
+  updateOneTransaction,
+  deleteOneTransaction
 } = require('../services/transactionServices');
 
 const getAllTransactions = catchAsync(async (req, res, next) => {
@@ -86,9 +87,28 @@ const updateTransaction = catchAsync(async (req, res, next) => {
   }
 });
 
+const deleteTransaction = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await deleteOneTransaction(id)
+    endpointResponse({
+      res,
+      code: 200,
+      message: 'Transaction deleted successfully',
+    });
+  } catch (error) {
+    const httpError = createHttpError(
+      error.statusCode,
+      `[Error deleting Transaction] - [transaction - DELETE]: ${error.message}`
+    );
+    next(httpError);
+  }
+});
+
 module.exports = {
   getAllTransactions,
   postTransaction,
   getTransaction,
-  updateTransaction
+  updateTransaction,
+  deleteTransaction
 };
