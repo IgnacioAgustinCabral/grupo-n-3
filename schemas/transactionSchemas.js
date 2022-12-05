@@ -14,7 +14,7 @@ const postTransactionSchema = {
         isNumeric: true
     },
     date: {
-        isDate: true
+        isISO8601: true
     },
     description: {
         isString: true,
