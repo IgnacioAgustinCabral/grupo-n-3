@@ -10,7 +10,7 @@ async function createTransaction(newTransaction) {
 }
 
 async function findOneTransaction(id) {
-  const transaction = await Transaction.findByPk(id)
+  const transaction = await Transaction.findByPk(id);
   if (!transaction) {
     throw new ErrorObject('Transaction not found', 404);
   }
@@ -22,8 +22,16 @@ async function updateOneTransaction(body, id) {
 }
 
 async function deleteOneTransaction(id) {
-  const transaction = await findOneTransaction(id)
-  await transaction.destroy()
+  const transaction = await findOneTransaction(id);
+  await transaction.destroy();
+}
+
+async function findTransactionsByUserId(userId) {
+  const transaction = await Transaction.findAll({ where: { userId } });
+  if (transaction.length == 0) {
+    throw new ErrorObject('Transactions by user ID not found', 404);
+  }
+  return transaction;
 }
 
 module.exports = {
@@ -31,5 +39,6 @@ module.exports = {
   createTransaction,
   findOneTransaction,
   updateOneTransaction,
-  deleteOneTransaction
+  deleteOneTransaction,
+  findTransactionsByUserId
 };
