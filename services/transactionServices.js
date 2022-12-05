@@ -21,9 +21,15 @@ async function updateOneTransaction(body, id) {
   return await Transaction.update(body, { where: { id } });
 }
 
+async function deleteOneTransaction(id) {
+  const transaction = await findOneTransaction(id)
+  await transaction.destroy()
+}
+
 module.exports = {
   findAllTransaction,
   createTransaction,
   findOneTransaction,
-  updateOneTransaction
+  updateOneTransaction,
+  deleteOneTransaction
 };
