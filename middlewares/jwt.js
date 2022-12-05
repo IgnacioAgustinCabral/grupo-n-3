@@ -62,6 +62,7 @@ const isAdmin = (req, res, next) => {
 
 module.exports = {
     verify,
+    decode,
     encode,
     isUser,
     isAdmin
