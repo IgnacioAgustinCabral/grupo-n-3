@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             this.belongsTo(models.Role, { through: "fk_Roles" });
+            this.hasMany(models.Transaction, { foreignKey: 'userId' });
         }
     }
     User.init(
