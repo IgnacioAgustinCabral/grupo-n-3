@@ -3,7 +3,8 @@ const {
     getAllTransactions,
     postTransaction,
     getTransaction,
-    updateTransaction
+    updateTransaction,
+    deleteTransaction
 } = require('../controllers/transactionControllers');
 const {
     validateRequestBySchema
@@ -16,5 +17,6 @@ router.get('/', getAllTransactions);
 router.post('/', validateRequestBySchema(postTransactionSchema), postTransaction);
 router.get('/:id', getTransaction);
 router.put('/:id', updateTransaction);
+router.delete('/:id', deleteTransaction);
 
 module.exports = router;
