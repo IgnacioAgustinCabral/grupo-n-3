@@ -18,13 +18,18 @@ const diskStorage = multer.diskStorage({
 const uploadAvatar = multer({
   storage: diskStorage,
   fileFilter: (req, file, cb) => {
-    const acceptedExtensions = ["image/png", "image/jpeg"];
+    const acceptedExtensions = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/svg+xml",
+    ];
 
     try {
       if (acceptedExtensions.includes(file?.mimetype)) {
         return cb(null, true);
       } else {
-        throw new ErrorObject("Only png/jpg images");
+        throw new ErrorObject("Only png/jpg/svg/webp images");
       }
     } catch (error) {
       return cb(error, null);
