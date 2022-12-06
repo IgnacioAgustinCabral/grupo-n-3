@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('', allCategories);
 router.get('/:id', getCategory);
 router.post('/',validateRequestBySchema(categorySchema), postCategory)
-router.patch('/:id', validateRequestBySchema(categorySchema), updateCategory)
+router.put('/:id', validateRequestBySchema(categorySchema), updateCategory)
 router.delete('/:id', deleteCategory)
 
 module.exports = router
