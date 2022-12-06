@@ -6,12 +6,12 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/userController");
-
+const { uploadAvatar } = require("../middlewares/checkImage");
 const router = express.Router();
 
 router.get("/", getAllUsers);
 router.get("/:id", getUser);
-router.post("/create", createUser);
+router.post("/create", uploadAvatar, createUser);
 router.put("/:id", updateUser);
 router.put("/delete/:id", deleteUser);
 
