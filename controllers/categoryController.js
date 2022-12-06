@@ -66,6 +66,64 @@ module.exports = {
           );
           next(httpError);
         }
-      }),
+    }),
+    updateCategory: catchAsync(async (req,res, next)=>{
+      const {id} = req.params;
+      const {name, description} = req.body;
+      try {
+        const category = await Category.findByPk(id);
+        if(!category){
+          const httpError = createHttpError(404, "Category not found");
+          return next(httpError);
+        }
+        await category.update({
+          name,
+          description,
+        });
+        await category.save();
+
+        endpointResponse({
+          res,
+          message: "Category update succesfully",
+          body: category,
+        });
+      } catch (error) {
+        const httpError = createHttpError(
+          error.statusCode,
+          `[Error retrieving CategoryUpdate] - [Category - Patch]: ${error.message}`
+        );
+        next(httpError);
+      }
+    }),
+    deleteCategory: catchAsync(async (req, res, next) => {
+      const { id } = req.params;
+  
+      try {
+        const category = await Category.findByPk(id);
+        if (category) {
+          await category.destroy({
+            where: {id}
+          });
+          // await category.save();
+  
+          endpointResponse({
+            res,
+            message: "Category deleted successfully",
+            body: category,
+          });
+        }
+        const httpError = createHttpError(
+          404,
+          `[Error retrieving Category] - [Category - Del]: ${"Category not found"}`
+        );
+        next(httpError);
+      } catch (error) {
+        const httpError = createHttpError(
+          error.statusCode,
+          `[Error retrieving Category] - [Category - Del]: ${error.message}`
+        );
+        next(httpError);
+      }
+    })
   }
   
