@@ -2,16 +2,13 @@ const { User } = require("../database/models");
 const { genSaltSync, hashSync } = require("bcrypt");
 const { ErrorObject } = require("../helpers/error");
 
-async function findOrCreateUser({
-  firstName,
-  lastName,
-  email,
-  roleId,
-  avatar,
-  password,
-}) {
+async function findOrCreateUser(
+  { firstName, lastName, email, roleId, password },
+  avatar
+) {
   const saltRounds = genSaltSync(10);
   const hashPassword = hashSync(password, saltRounds);
+
   if (!hashPassword) throw new ErrorObject("Hash error", 400);
   return await User.findOrCreate({
     where: {
@@ -22,8 +19,8 @@ async function findOrCreateUser({
       lastName,
       email,
       password: hashPassword,
-      avatar,
-      roleId,
+      avatar: avatar ? `public/uploads/${avatar.filename}` : null,
+      roleId: Number(roleId),
     },
   });
 }

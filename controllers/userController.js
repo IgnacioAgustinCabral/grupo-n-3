@@ -46,7 +46,7 @@ module.exports = {
   }),
   createUser: catchAsync(async (req, res, next) => {
     try {
-      const [user, created] = await findOrCreateUser(req.body);
+      const [user, created] = await findOrCreateUser(req.body, req.file);
       endpointResponse({
         res,
         message: created
