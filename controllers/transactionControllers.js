@@ -6,7 +6,8 @@ const {
   createTransaction,
   findOneTransaction,
   updateOneTransaction,
-  deleteOneTransaction
+  deleteOneTransaction,
+  findTransactionsByUserId
 } = require('../services/transactionServices');
 
 const getAllTransactions = catchAsync(async (req, res, next) => {
@@ -28,7 +29,6 @@ const getAllTransactions = catchAsync(async (req, res, next) => {
 
 const postTransaction = catchAsync(async (req, res, next) => {
   const { userId, categoryId, amount, date, description } = req.body;
-
   try {
     const transaction = await createTransaction({
       userId, categoryId, amount, date, description
@@ -105,10 +105,29 @@ const deleteTransaction = catchAsync(async (req, res, next) => {
   }
 });
 
+const getTransactionsByUserId = catchAsync(async (req, res, next) => {
+  const { userId } = req.query;
+  try {
+    const transactionsByUserId = await findTransactionsByUserId(userId);
+    endpointResponse({
+      res,
+      code: 200,
+      body: transactionsByUserId
+    });
+  } catch (error) {
+    const httpError = createHttpError(
+      error.statusCode,
+      `[Error retrieving Transaction] - [transaction - GET]: ${error.message}`
+    );
+    next(httpError);
+  }
+});
+
 module.exports = {
   getAllTransactions,
   postTransaction,
   getTransaction,
   updateTransaction,
-  deleteTransaction
+  deleteTransaction,
+  getTransactionsByUserId
 };
