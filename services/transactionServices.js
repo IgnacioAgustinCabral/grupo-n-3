@@ -5,7 +5,7 @@ async function findAllTransaction(page) {
   let pageUrl = "http://localhost:3000/transactions?page=",
     prevPage = null,
     nextPage = null,
-    limit = 5,
+    limit = 10,
     offset = page * limit, //ex: page 0 * limit 10 = 0 - show since register 0-
     pages = 0; // quantity of pages
 
