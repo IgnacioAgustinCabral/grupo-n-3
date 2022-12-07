@@ -1,22 +1,30 @@
-const createHttpError = require('http-errors');
-const { endpointResponse } = require('../helpers/success');
-const { catchAsync } = require('../helpers/catchAsync');
+const createHttpError = require("http-errors");
+const { endpointResponse } = require("../helpers/success");
+const { catchAsync } = require("../helpers/catchAsync");
 const {
   findAllTransaction,
   createTransaction,
   findOneTransaction,
   updateOneTransaction,
   deleteOneTransaction,
-  findTransactionsByUserId
-} = require('../services/transactionServices');
+  findTransactionsByUserId,
+} = require("../services/transactionServices");
 
 const getAllTransactions = catchAsync(async (req, res, next) => {
+  let { page = 0 } = req.query;
   try {
-    const transactions = await findAllTransaction();
+    const { count, rows, prevPage, nextPage } = await findAllTransaction(
+      Number(page)
+    );
     endpointResponse({
       res,
       code: 200,
-      body: transactions,
+      body: {
+        total: count,
+        prevPage,
+        nextPage,
+        transactions: rows,
+      },
     });
   } catch (error) {
     const httpError = createHttpError(
@@ -31,12 +39,16 @@ const postTransaction = catchAsync(async (req, res, next) => {
   const { userId, categoryId, amount, date, description } = req.body;
   try {
     const transaction = await createTransaction({
-      userId, categoryId, amount, date, description
+      userId,
+      categoryId,
+      amount,
+      date,
+      description,
     });
     endpointResponse({
       res,
       code: 201,
-      body: transaction
+      body: transaction,
     });
   } catch (error) {
     const httpError = createHttpError(
@@ -53,9 +65,9 @@ const getTransaction = catchAsync(async (req, res, next) => {
     const transaction = await findOneTransaction(id);
     endpointResponse({
       res,
-      message: 'Transaction retrieved successfully',
+      message: "Transaction retrieved successfully",
       code: 200,
-      body: transaction
+      body: transaction,
     });
   } catch (error) {
     const httpError = createHttpError(
@@ -75,7 +87,7 @@ const updateTransaction = catchAsync(async (req, res, next) => {
     const updatedTransaction = await findOneTransaction(id);
     endpointResponse({
       res,
-      message: 'Transaction updated successfully',
+      message: "Transaction updated successfully",
       body: updatedTransaction,
     });
   } catch (error) {
@@ -90,11 +102,11 @@ const updateTransaction = catchAsync(async (req, res, next) => {
 const deleteTransaction = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   try {
-    await deleteOneTransaction(id)
+    await deleteOneTransaction(id);
     endpointResponse({
       res,
       code: 200,
-      message: 'Transaction deleted successfully',
+      message: "Transaction deleted successfully",
     });
   } catch (error) {
     const httpError = createHttpError(
@@ -112,7 +124,7 @@ const getTransactionsByUserId = catchAsync(async (req, res, next) => {
     endpointResponse({
       res,
       code: 200,
-      body: transactionsByUserId
+      body: transactionsByUserId,
     });
   } catch (error) {
     const httpError = createHttpError(
@@ -129,5 +141,5 @@ module.exports = {
   getTransaction,
   updateTransaction,
   deleteTransaction,
-  getTransactionsByUserId
+  getTransactionsByUserId,
 };

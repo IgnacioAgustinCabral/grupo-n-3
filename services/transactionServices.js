@@ -1,8 +1,29 @@
 const { Transaction } = require("../database/models");
 const { ErrorObject } = require("../helpers/error");
 
-async function findAllTransaction() {
-  return await Transaction.findAll();
+async function findAllTransaction(page) {
+  let pageUrl = "http://localhost:3000/transactions?page=",
+    prevPage = null,
+    nextPage = null,
+    limit = 5,
+    offset = page * limit, //ex: page 0 * limit 10 = 0 - show since register 0-
+    pages = 0; // quantity of pages
+
+  const { count, rows } = await Transaction.findAndCountAll({
+    offset,
+    limit,
+  });
+
+  // ex: 12 registers / 10 limit = 2 pages in total - 1 because page initial value is 0
+  pages = Math.ceil(count / limit) - 1;
+
+  // actual page greater than 0 and actual page is less than  quantities of pages
+  if (page > 0 && page <= pages) prevPage = `${pageUrl}${page - 1}`;
+
+  // actual page is less than quantities of pages
+  if (page < pages) nextPage = `${pageUrl}${page + 1}`;
+
+  return { count, rows, prevPage, nextPage };
 }
 
 async function createTransaction(newTransaction) {
@@ -12,7 +33,7 @@ async function createTransaction(newTransaction) {
 async function findOneTransaction(id) {
   const transaction = await Transaction.findByPk(id);
   if (!transaction) {
-    throw new ErrorObject('Transaction not found', 404);
+    throw new ErrorObject("Transaction not found", 404);
   }
   return transaction;
 }
@@ -29,7 +50,7 @@ async function deleteOneTransaction(id) {
 async function findTransactionsByUserId(userId) {
   const transaction = await Transaction.findAll({ where: { userId } });
   if (transaction.length == 0) {
-    throw new ErrorObject('Transactions by user ID not found', 404);
+    throw new ErrorObject("Transactions by user ID not found", 404);
   }
   return transaction;
 }
@@ -40,5 +61,5 @@ module.exports = {
   findOneTransaction,
   updateOneTransaction,
   deleteOneTransaction,
-  findTransactionsByUserId
+  findTransactionsByUserId,
 };
