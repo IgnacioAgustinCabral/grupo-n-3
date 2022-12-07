@@ -4,7 +4,7 @@ const { ErrorObject } = require("../helpers/error");
 
 async function findOrCreateUser(
   { firstName, lastName, email, roleId, password },
-  avatar
+  avatar,
 ) {
   const saltRounds = genSaltSync(10);
   const hashPassword = hashSync(password, saltRounds);
@@ -32,7 +32,19 @@ async function deleteUser(id) {
 
   return userDeleted;
 }
+
+async function findOneUser({ id, email }) {
+  const where = id ? { id } : { email };
+  const user = await User.findOne({ where });
+
+  if (!user) {
+    throw new ErrorObject("User not found", 404);
+  }
+  return user;
+}
+
 module.exports = {
   findOrCreateUser,
   deleteUser,
+  findOneUser,
 };
