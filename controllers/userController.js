@@ -2,18 +2,28 @@ const createHttpError = require("http-errors");
 const { endpointResponse } = require("../helpers/success");
 const { catchAsync } = require("../helpers/catchAsync");
 const { User } = require("../database/models");
-const { findOrCreateUser, deleteUser } = require("../services/userServices");
+const {
+  findAllUsers,
+  findOrCreateUser,
+  deleteUser,
+} = require("../services/userServices");
 
 module.exports = {
   getAllUsers: catchAsync(async (req, res, next) => {
+    let { page = 0 } = req.query;
     try {
-      const users = await User.findAll({
-        attributes: ["firstName", "lastName", "email", "createdAt"],
-      });
+      const { count, rows, prevPage, nextPage } = await findAllUsers(
+        Number(page)
+      );
       endpointResponse({
         res,
         message: "Users retrieved successfully",
-        body: users,
+        body: {
+          total: count,
+          prevPage,
+          nextPage,
+          users: rows,
+        },
       });
     } catch (error) {
       const httpError = createHttpError(
