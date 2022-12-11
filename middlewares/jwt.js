@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
 const decode = (req, _, next) => {
     const token = req.headers["authorization"];
@@ -28,20 +29,26 @@ const verify = (token) => {
     return jwt.verify(token, privateKey)
 }
 
-const isUser = (req, res, next) => {
-    const token = req.headers["authorization"];
+const getTokenFromRequest = (request) => {
+    const authorization = request.headers["authorization"]
+    const token = authorization ? authorization.substring(7) : null
+    return token
+}
+
+const isUserAuthenticated = (req, res, next) => {
+    const token = getTokenFromRequest(req)
 
     try {
-        const user = encode(token)
+        const user = verify(token)
+        if (user.id && user.roleId <= 2) {
+            req.user = user
+            return next();
+        }
 
-        if (user.roleId <= 2) return next();
-
-        res.status(401).json({ error: "Unauthorized" });
+        res.status(403).json({ error: "Unauthorized" });
     } catch (e) {
-        res.status(401).json({ error: "Token expired" });
+        res.status(403).json({ error: "Token expired or invalid" });
     }
-
-
 };
 
 const isAdmin = (req, res, next) => {
@@ -64,6 +71,6 @@ module.exports = {
     verify,
     decode,
     encode,
-    isUser,
+    isUserAuthenticated,
     isAdmin
 };
