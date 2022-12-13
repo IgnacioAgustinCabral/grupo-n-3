@@ -20,4 +20,5 @@ const isAdminRole = (req, res, next) => {
 
 module.exports = {
   isAdminRole,
+  httpUnauthorizedError
 };
