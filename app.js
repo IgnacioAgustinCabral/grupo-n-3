@@ -28,28 +28,27 @@ app.use("/users", userRouter);
 app.use("/transactions", transactionRouter);
 app.use("/auth", authRoute);
 
-/* // ToDo: REVISAR MANEJO DE ERRORES!
-// // catch 404 and forward to error handler
-// app.use((req, res, next) => {
-//   next(createError(404));
-// });
+v1SwaggerDocs(app, port);
 
-// // error handler
-// app.use((err, req, res) => {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
-*/
+// error handler
+app.use((err, req, res) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Servidor funcionando en el puerto ${port}`);
-  v1SwaggerDocs(app, port);
 });
 
 module.exports = app;

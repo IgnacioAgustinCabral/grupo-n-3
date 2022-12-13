@@ -6,7 +6,7 @@ const options = {
     openapi: '3.0.0',
     info: { title: 'AlkyBank Wallet', version: '1.0.0' },
   },
-  apis: ['./routes/index.js', './database/models/index.js']
+  apis: ['./routes/categories.js', './database/models/index.js']
 };
 
 const swaggerSpec = swaggerJSDoc(options);

@@ -12,6 +12,24 @@ module.exports = (sequelize, DataTypes) => {
 			this.hasMany(models.Transaction, { foreignKey: 'categoryId' });
 		}
 	}
+
+	/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       properties:
+ * 				 id:
+ * 						type: integer
+ * 						example: 215
+ * 				 name: 
+ * 						type: string
+ *           	example: 
+ * 				 description: 
+ * 						type: string
+ *           	example: 
+ */
 	Category.init(
 		{
 			id: {
