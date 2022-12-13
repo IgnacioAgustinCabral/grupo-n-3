@@ -1,5 +1,6 @@
 const { compare } = require('bcrypt');
 const { ErrorObject } = require('../helpers/error');
+const { encode } = require('../middlewares/jwt');
 const { findOneUser } = require('./userServices');
 
 async function login({ email, password }) {
@@ -10,7 +11,9 @@ async function login({ email, password }) {
     throw new ErrorObject('Email or password invalid', 401);
   }
 
-  return user;
+  const token = encode({ id: user.id, roleId: user.roleId, firstName: user.firstName })
+
+  return { token };
 }
 
 module.exports = {

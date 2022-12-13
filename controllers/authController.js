@@ -5,11 +5,11 @@ const { login } = require('../services/authServices');
 const postLogin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = await login({ email, password });
+    const token = await login({ email, password });
     endpointResponse({
       res,
       code: 200,
-      body: user,
+      body: { token },
     });
   } catch (error) {
     res.status(401).json({ ok: false });
