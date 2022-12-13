@@ -7,12 +7,14 @@ const {
   deleteUser,
 } = require("../controllers/userController");
 const { uploadAvatar } = require("../middlewares/checkImage");
+const { verifyIfOwnerOrAdmin } = require("../middlewares/verifyIfOwnerOrAdmin");
 const router = express.Router();
 
-router.get("/", getAllUsers);
-router.get("/:id", getUser);
+
+router.get("/", verifyIfOwnerOrAdmin, getAllUsers);
+router.get("/:id", verifyIfOwnerOrAdmin, getUser);
 router.post("/create", uploadAvatar, createUser);
-router.put("/:id", updateUser);
-router.put("/delete/:id", deleteUser);
+router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
+router.put("/delete/:id", verifyIfOwnerOrAdmin, deleteUser);
 
 module.exports = router;
