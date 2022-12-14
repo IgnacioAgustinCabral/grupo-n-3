@@ -11,8 +11,6 @@ const userRouter = require("./routes/userRoute");
 const transactionRouter = require("./routes/transactionRoute");
 const authRoute = require("./routes/authRoute");
 
-const port = process.env.PORT || 3000;
-
 const app = express();
 app.use(cors());
 
@@ -41,11 +39,6 @@ app.use((err, req, res) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-});
-
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Servidor funcionando en el puerto ${port}`);
 });
 
 module.exports = app;
