@@ -5,7 +5,6 @@ const {
   getTransaction,
   updateTransaction,
   deleteTransaction,
-  getTransactionsByUserId,
 } = require("../controllers/transactionControllers");
 const { isOwnerTransaction } = require("../middlewares/isOwnerTransaction");
 const { isUserAuthenticated } = require("../middlewares/jwt");
@@ -16,7 +15,6 @@ const { postTransactionSchema } = require("../schemas/transactionSchemas");
 
 const router = express.Router();
 
-router.get("/userId", isUserAuthenticated, getTransactionsByUserId);
 router.get("/", isUserAuthenticated, getAllTransactions);
 router.get("/:id", isUserAuthenticated, isOwnerTransaction, getTransaction);
 router.post(
@@ -26,6 +24,11 @@ router.post(
   postTransaction,
 );
 router.put("/:id", isUserAuthenticated, isOwnerTransaction, updateTransaction);
-router.delete("/:id", isUserAuthenticated, isOwnerTransaction, deleteTransaction);
+router.delete(
+  "/:id",
+  isUserAuthenticated,
+  isOwnerTransaction,
+  deleteTransaction,
+);
 
 module.exports = router;
