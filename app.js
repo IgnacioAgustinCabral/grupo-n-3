@@ -10,6 +10,7 @@ const indexRouter = require("./routes/index");
 const userRouter = require("./routes/userRoute");
 const transactionRouter = require("./routes/transactionRoute");
 const authRoute = require("./routes/authRoute");
+const { swaggerDocs: v1SwaggerDocs } = require('./swagger')
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,10 @@ app.use("/", indexRouter);
 app.use("/users", userRouter);
 app.use("/transactions", transactionRouter);
 app.use("/auth", authRoute);
+
+const port = process.env.PORT || 3000;
+
+v1SwaggerDocs (app, port);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
