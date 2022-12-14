@@ -41,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
  *         roleId:
  *           type: integer
  *           example: 2
+ *       required:
+ *         - id
+ *         - firstName
+ *         - lastName
+ *         - email
+ *         - password
+ *         - roleId
  */
     User.init(
         {

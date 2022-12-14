@@ -14,51 +14,43 @@ const router = express.Router();
  * @swagger
  * /users:
  *   get:
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All users retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/User'
  */
 router.get("/", verifyIfOwnerOrAdmin, getAllUsers);
 
 /**
  * @swagger
- * /users/:id:
+ * /users/{id}:
  *   get:
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     security:
  *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
  */
 router.get("/:id", verifyIfOwnerOrAdmin, getUser);
 
@@ -66,75 +58,71 @@ router.get("/:id", verifyIfOwnerOrAdmin, getUser);
  * @swagger
  * /users/create:
  *   post:
- *     tags:
- *       - Users
+ *     tags: [Users]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         description: User created
+ *       500:
+ *         description: Error creating user
  */
 router.post("/create", uploadAvatar, createUser);
 
 /**
  * @swagger
- * /users/:id:
+ * /users/{id}:
  *   put:
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User updated
+ *       500:
+ *         description: Error updating user
  */
 router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
 
 /**
  * @swagger
- * /users/delete/:id:
+ * /users/delete/{id}:
  *   delete:
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 example: 215
+ *     responses:
+ *       200:
+ *         description: User deleted
  */
 router.put("/delete/:id", verifyIfOwnerOrAdmin, deleteUser);
 
