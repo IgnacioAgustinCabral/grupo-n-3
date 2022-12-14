@@ -89,6 +89,7 @@ module.exports = {
   }),
   deleteUser: catchAsync(async (req, res, next) => {
     const { id } = req.params;
+    console.log("AAAAAAAA");
     try {
       const userDeleted = await deleteUser(id);
 
