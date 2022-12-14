@@ -70,6 +70,8 @@ router.get('/:id', getCategory);
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -94,6 +96,8 @@ router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -118,6 +122,8 @@ router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCateg
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:

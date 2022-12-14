@@ -15,10 +15,12 @@ const router = express.Router();
  * /users:
  *   get:
  *     tags:
-*       - Users
+ *       - Users
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -36,13 +38,15 @@ router.get("/", verifyIfOwnerOrAdmin, getAllUsers);
 
 /**
  * @swagger
- * /users:
+ * /users/:id:
  *   get:
  *     tags:
  *       - Users
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -60,7 +64,7 @@ router.get("/:id", verifyIfOwnerOrAdmin, getUser);
 
 /**
  * @swagger
- * /users:
+ * /users/create:
  *   post:
  *     tags:
  *       - Users
@@ -84,13 +88,15 @@ router.post("/create", uploadAvatar, createUser);
 
 /**
  * @swagger
- * /users:
+ * /users/:id:
  *   put:
  *     tags:
  *       - Users
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -108,13 +114,15 @@ router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
 
 /**
  * @swagger
- * /users:
+ * /users/delete/:id:
  *   delete:
  *     tags:
  *       - Users
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:

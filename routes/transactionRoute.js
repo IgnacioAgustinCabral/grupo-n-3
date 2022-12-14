@@ -18,13 +18,15 @@ const router = express.Router();
 
 /**
  * @swagger
- * /userId:
+ * /transactions/userId:
  *   get:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -42,13 +44,15 @@ router.get("/userId", isUserAuthenticated, getTransactionsByUserId);
 
 /**
  * @swagger
- * /:
+ * /transactions:
  *   get:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -66,13 +70,15 @@ router.get("/", isUserAuthenticated, getAllTransactions);
 
 /**
  * @swagger
- * /:id:
+ * /transactions/:id:
  *   get:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -90,13 +96,15 @@ router.get("/:id", isUserAuthenticated, isOwnerTransaction, getTransaction);
 
 /**
  * @swagger
- * /:
+ * /transactions:
  *   post:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -119,13 +127,15 @@ router.post(
 
 /**
  * @swagger
- * /:id:
+ * /transactions/:id:
  *   put:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:
@@ -143,13 +153,15 @@ router.put("/:id", isUserAuthenticated, isOwnerTransaction, updateTransaction);
 
 /**
  * @swagger
- * /:id:
+ * /transactions/:id:
  *   delete:
  *     tags:
  *       - Transactions
  *     responses:
  *       200:
  *         description: OK
+ *     security:
+ *       - bearerAuth: []
  *         content:
  *           application/json:
  *             schema:

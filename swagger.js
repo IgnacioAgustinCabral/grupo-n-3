@@ -6,10 +6,16 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: { title: 'AlkyBank Wallet', version: '1.0.0' },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http', scheme: 'bearer'
+        }
+      }
+    },
   },
   apis: [
     './routes/categories.js', './database/models/category.js',
-    './database/models/role.js',
     './routes/transactionRoute.js', './database/models/transaction.js',
     './routes/userRoute.js', './database/models/user.js'
   ]

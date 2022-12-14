@@ -11,24 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 
         }
     }
-    
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       properties:
- *         id: 
- *           type: string
- *           example: 215
- *         name: 
- *           type: string
- *           example: TODO  
- *         description:
- *           type: string
- *           example: TODO
- */
     Role.init(
         {
             id: {
