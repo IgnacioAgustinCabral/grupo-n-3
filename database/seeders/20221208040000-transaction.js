@@ -1,47 +1,69 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('transactions', [
+    const date = new Date();
+
+    await queryInterface.bulkInsert("transactions", [
       {
-        description: 'pago de servicio de luz',
+        id: 1,
+        description: "pago de servicio de luz",
+        date: new Date(),
         amount: 1200.23,
-        userId: '1',
-        categoryId: '2'
+        userId: 1,
+        categoryId: 2,
+        createdAt: date,
+        updatedAt: date,
       },
       {
-        description: 'cobro de honorarios',
+        description: "cobro de honorarios",
         amount: 1888.29,
-        userId: '2',
-        categoryId: '1'
+        date: new Date(),
+        userId: 2,
+        categoryId: 1,
+        createdAt: date,
+        updatedAt: date,
       },
       {
-        description: 'transferencia a amigo',
+        description: "transferencia a amigo",
         amount: 500.97,
-        userId: '6',
-        categoryId: '2'
+        date: new Date(),
+        userId: 6,
+        categoryId: 2,
+        createdAt: date,
+        updatedAt: date,
       },
       {
-        description: 'pago de servicio de gas',
+        description: "pago de servicio de gas",
         amount: 680.11,
-        userId: '5',
-        categoryId: '2'
+        date: new Date(),
+        userId: 5,
+        categoryId: 2,
+        createdAt: date,
+        updatedAt: date,
       },
       {
-        description: 'sueldo',
-        amount: 12900.50,
-        userId: '8',
-        categoryId: '1'
+        description: "sueldo",
+        amount: 12900.5,
+        date: new Date(),
+        userId: 8,
+        categoryId: 1,
+        createdAt: date,
+        updatedAt: date,
       },
       {
-        description: 'cobro de alquiler a inquilino',
-        amount: 5000.50,
-        userId: '9',
-        categoryId: '1'
-      }]);
+        description: "cobro de alquiler a inquilino",
+        amount: 5000.5,
+        date: new Date(),
+        userId: 9,
+        categoryId: 1,
+        createdAt: date,
+        updatedAt: date,
+      },
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('transactions', null, {});
-  }
+    await queryInterface.bulkDelete("transactions", null, {});
+  },
 };
