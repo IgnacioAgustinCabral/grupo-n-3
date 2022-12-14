@@ -1,3 +1,4 @@
+'use strict';
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
@@ -6,7 +7,12 @@ const options = {
     openapi: '3.0.0',
     info: { title: 'AlkyBank Wallet', version: '1.0.0' },
   },
-  apis: ['./routes/categories.js', './database/models/index.js']
+  apis: [
+    './routes/categories.js', './database/models/category.js',
+    './database/models/role.js',
+    './routes/transactionRoute.js', './database/models/transaction.js',
+    './routes/userRoute.js', './database/models/user.js'
+  ]
 };
 
 const swaggerSpec = swaggerJSDoc(options);

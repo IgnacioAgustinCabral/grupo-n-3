@@ -13,6 +13,33 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Transaction:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 215
+ *         description: 
+ *           type: string
+ *           example: TODO  
+ *         date:
+ *           type: date
+ *           example: TODO
+ *         amount:
+ *           type: decimal
+ *           example: TODO
+ *         userId:
+ *           type: integer
+ *           example: TODO
+ *         categoryId:
+ *           type: integer
+ *           example: TODO
+ */
   Transaction.init(
     {
       id: {

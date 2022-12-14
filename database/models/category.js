@@ -13,22 +13,22 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	}
 
-	/**
+/**
  * @swagger
  * components:
  *   schemas:
  *     Category:
  *       type: object
  *       properties:
- * 				 id:
- * 						type: integer
- * 						example: 215
- * 				 name: 
- * 						type: string
- *           	example: 
- * 				 description: 
- * 						type: string
- *           	example: 
+ *         id: 
+ *           type: string
+ *           example: 215
+ *         name: 
+ *           type: string
+ *           example: TODO  
+ *         description:
+ *           type: string
+ *           example: TODO
  */
 	Category.init(
 		{
