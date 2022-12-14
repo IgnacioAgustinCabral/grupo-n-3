@@ -1,137 +1,230 @@
-'use strict';
+"use strict";
 const models = require("../models");
 const bcrypt = require("bcrypt");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const date = new Date();
+
     //USUARIOS ADMIN
-    await queryInterface.bulkInsert('users', [{
-      firstName: "Juan",
-      lastName: "Chavez",
-      email: "jchavez@gmail.com",
-      password: await bcrypt.hash('pas32', 10),
-      roleId: "1"
-    }, {
-      firstName: "Juan",
-      lastName: "Perez",
-      email: "jperez@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Miguel",
-      lastName: "Cervantes",
-      email: "mc@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Pedro",
-      lastName: "Picapiedra",
-      email: "pp@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Homero",
-      lastName: "Alvarez",
-      email: "ha@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Cristian",
-      lastName: "Romero",
-      email: "cr@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Leo",
-      lastName: "Messi",
-      email: "lm@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "John",
-      lastName: "Doe",
-      email: "johnd@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Jane",
-      lastName: "Deaw",
-      email: "janed@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }, {
-      firstName: "Joaquin",
-      lastName: "Sabina",
-      email: "js@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "1"
-    }], {});
+
+    await queryInterface.bulkInsert(
+      "users",
+      [
+        {
+          id: 1,
+          firstName: "Juan",
+          lastName: "Chavez",
+          email: "jchavez@gmail.com",
+          password: await bcrypt.hash("pas32", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 2,
+          firstName: "Juan",
+          lastName: "Perez",
+          email: "jperez@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 3,
+          firstName: "Miguel",
+          lastName: "Cervantes",
+          email: "mc@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 4,
+          firstName: "Pedro",
+          lastName: "Picapiedra",
+          email: "pp@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 5,
+          firstName: "Homero",
+          lastName: "Alvarez",
+          email: "ha@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 6,
+          firstName: "Cristian",
+          lastName: "Romero",
+          email: "cr@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 7,
+          firstName: "Leo",
+          lastName: "Messi",
+          email: "lm@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 8,
+          firstName: "John",
+          lastName: "Doe",
+          email: "johnd@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 9,
+          firstName: "Jane",
+          lastName: "Deaw",
+          email: "janed@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 10,
+          firstName: "Joaquin",
+          lastName: "Sabina",
+          email: "js@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 1,
+          createdAt: date,
+          updatedAt: date,
+        },
+      ],
+      {}
+    );
 
     //USUARIOS NORMALES
-    await queryInterface.bulkInsert('users', [{
-      firstName: "Eduardo",
-      lastName: "Aleman",
-      email: "ea@gmail.com",
-      password: await bcrypt.hash('pas32', 10),
-      roleId: "2"
-    }, {
-      firstName: "Agustin",
-      lastName: "Martinez",
-      email: "am@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Juan",
-      lastName: "Musso",
-      email: "jmusso@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Francisco",
-      lastName: "Simpson",
-      email: "fs@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Ignacio",
-      lastName: "Salo",
-      email: "is@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Juan",
-      lastName: "Takeda",
-      email: "jtakeda@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Milagros",
-      lastName: "Peperina",
-      email: "mpp@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Andres",
-      lastName: "Noro",
-      email: "an23@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Xavier",
-      lastName: "Perez",
-      email: "xperez@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }, {
-      firstName: "Martin",
-      lastName: "Laguna",
-      email: "mlaguna23@gmail.com",
-      password: await bcrypt.hash('zeezq123g', 10),
-      roleId: "2"
-    }], {});
+    await queryInterface.bulkInsert(
+      "users",
+      [
+        {
+          id: 11,
+          firstName: "Eduardo",
+          lastName: "Aleman",
+          email: "ea@gmail.com",
+          password: await bcrypt.hash("pas32", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 12,
+          firstName: "Agustin",
+          lastName: "Martinez",
+          email: "am@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 13,
+          firstName: "Juan",
+          lastName: "Musso",
+          email: "jmusso@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 14,
+          firstName: "Francisco",
+          lastName: "Simpson",
+          email: "fs@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 15,
+          firstName: "Ignacio",
+          lastName: "Salo",
+          email: "is@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 16,
+          firstName: "Juan",
+          lastName: "Takeda",
+          email: "jtakeda@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 17,
+          firstName: "Milagros",
+          lastName: "Peperina",
+          email: "mpp@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 18,
+          firstName: "Andres",
+          lastName: "Noro",
+          email: "an23@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 19,
+          firstName: "Xavier",
+          lastName: "Perez",
+          email: "xperez@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+        {
+          id: 20,
+          firstName: "Martin",
+          lastName: "Laguna",
+          email: "mlaguna23@gmail.com",
+          password: await bcrypt.hash("zeezq123g", 10),
+          roleId: 2,
+          createdAt: date,
+          updatedAt: date,
+        },
+      ],
+      {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('users', null, {});
-  }
+    await queryInterface.bulkDelete("users", null, {});
+  },
 };
