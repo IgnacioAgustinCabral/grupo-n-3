@@ -5,10 +5,13 @@ const {
     postCategory,
     updateCategory,
     deleteCategory
-} = require('../controllers/categoryController')
-const {validateRequestBySchema} = require('../middlewares/validateRequestSchema')
+} = require('../controllers/categoryController');
+const { isUserAuthenticated, isAdmin } = require('../middlewares/jwt');
+const { validateRequestBySchema } = require('../middlewares/validateRequestSchema')
 const categorySchema = require('../schemas')
 const router = express.Router();
+
+router.use(isUserAuthenticated)
 
 /**
  * @swagger
@@ -80,7 +83,7 @@ router.get('/:id', getCategory);
  *                   items: 
  *                     type: object
  */
-router.post('/',validateRequestBySchema(categorySchema), postCategory)
+router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
 
 /**
  * @swagger
@@ -104,7 +107,7 @@ router.post('/',validateRequestBySchema(categorySchema), postCategory)
  *                   items: 
  *                     type: object
  */
-router.put('/:id', validateRequestBySchema(categorySchema), updateCategory)
+router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCategory)
 
 /**
  * @swagger
@@ -128,6 +131,6 @@ router.put('/:id', validateRequestBySchema(categorySchema), updateCategory)
  *                   items: 
  *                     type: object
  */
-router.delete('/:id', deleteCategory)
+router.delete('/:id', isAdmin, deleteCategory)
 
 module.exports = router

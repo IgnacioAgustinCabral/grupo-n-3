@@ -1,21 +1,24 @@
+const { httpUnauthorizedError } = require("./isAdminRole")
 const { getTokenFromRequest, verify } = require("./jwt")
 
 const verifyIfOwnerOrAdmin = (req, res, next) => {
     const token = getTokenFromRequest(req)
-    const userId = parseInt(req.params.id)
+
     try {
+        const userIdParams = parseInt(req.params.id)
+
         const userAuthenticated = verify(token)
 
-        const isOwner = userId === userAuthenticated.id;
+        const isOwner = userIdParams === userAuthenticated.id;
         const isAdmin = userAuthenticated.roleId === 1;
         if (isOwner || isAdmin) {
             req.user = userAuthenticated
             return next();
         }
 
-        res.status(403).json({ error: "Unauthorized" });
+        next(httpUnauthorizedError)
     } catch (e) {
-        res.status(403).json({ error: "Token expired or invalid" });
+        next(httpUnauthorizedError)
     }
 }
 

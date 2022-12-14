@@ -4,15 +4,12 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const { swaggerDocs: v1SwaggerDocs } = require('./swagger')
 require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/userRoute");
 const transactionRouter = require("./routes/transactionRoute");
 const authRoute = require("./routes/authRoute");
-
-const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
@@ -28,8 +25,6 @@ app.use("/users", userRouter);
 app.use("/transactions", transactionRouter);
 app.use("/auth", authRoute);
 
-v1SwaggerDocs(app, port);
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
@@ -44,11 +39,6 @@ app.use((err, req, res) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-});
-
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Servidor funcionando en el puerto ${port}`);
 });
 
 module.exports = app;

@@ -10,12 +10,12 @@
     "url": "https://github.com/gabodmc/nodejs-boilerplate"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node startApp.js",
     "dev": "nodemon app.js",
     "dev:migrate": "npx sequelize-cli db:migrate",
     "dev:migrate:undo": "npx sequelize-cli db:migrate:undo:all",
     "dev:seed": "npx sequelize-cli db:seed:all",
-    "test": "mocha ./test/*.js"
+    "test": "jest ./test/*.js"
   },
   "engines": {
     "node": ">=0.14"
