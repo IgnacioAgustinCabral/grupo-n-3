@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Category, { foreignKey: 'categoryId' });
-      this.belongsTo(models.User, { foreignKey: 'userId' });
+      this.belongsTo(models.Category, { foreignKey: "categoryId" });
+      this.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   Transaction.init(
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 6),
         allowNull: false,
       },
       userId: {
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
       sequelize,
       modelName: "Transaction",
-    }
+    },
   );
   return Transaction;
 };
