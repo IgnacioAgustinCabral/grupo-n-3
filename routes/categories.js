@@ -20,18 +20,17 @@ router.get("", allCategories);
 router.get("/:id", getCategory);
 router.post(
   "/",
-  isUserAuthenticated,
   isAdminRole,
   validateRequestBySchema(categorySchema),
   postCategory
 );
 router.put(
   "/:id",
-  isUserAuthenticated,
+
   isAdminRole,
   validateRequestBySchema(categorySchema),
   updateCategory
 );
-router.delete("/:id", isUserAuthenticated, isAdminRole, deleteCategory);
+router.delete("/:id", isAdminRole, deleteCategory);
 
 module.exports = router;
