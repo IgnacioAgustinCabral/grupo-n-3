@@ -68,6 +68,8 @@ router.get("/:id", verifyIfOwnerOrAdmin, getUser);
  *     responses:
  *       200:
  *         description: User created
+ *       400:
+ *         description: Bad request
  *       500:
  *         description: Error creating user
  */
@@ -94,6 +96,8 @@ router.post("/create", uploadAvatar, createUser);
  *     responses:
  *       200:
  *         description: User updated
+ *       400:
+ *         description: Bad request
  *       500:
  *         description: Error updating user
  */
@@ -104,25 +108,18 @@ router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
  * /users/delete/{id}:
  *   delete:
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 example: 215
  *     responses:
  *       200:
  *         description: User deleted
+ *       404:
+ *         description: User not found
  */
 router.put("/delete/:id", verifyIfOwnerOrAdmin, deleteUser);
 
