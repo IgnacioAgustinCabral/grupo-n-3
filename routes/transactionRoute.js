@@ -17,8 +17,9 @@ const router = express.Router();
 
 /**
  * @swagger
- * /transactions:
+ * /transactions?page=:
  *   get:
+ *     summary: Get all transactions with pagination
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -49,6 +50,7 @@ router.get("/", isUserAuthenticated, getAllTransactions);
  * @swagger
  * /transactions/{id}:
  *   get:
+ *     summary: Get one transaction
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -74,6 +76,7 @@ router.get("/:id", isUserAuthenticated, isOwnerTransaction, getTransaction);
  * @swagger
  * /transactions:
  *   post:
+ *     summary: Create transaction
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -95,13 +98,14 @@ router.post(
   "/",
   isUserAuthenticated,
   validateRequestBySchema(postTransactionSchema),
-  postTransaction,
+  postTransaction
 );
 
 /**
  * @swagger
  * /transactions/{id}:
  *   put:
+ *     summary: Update transaction
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
@@ -130,6 +134,7 @@ router.put("/:id", isUserAuthenticated, isOwnerTransaction, updateTransaction);
  * @swagger
  * /transactions/{id}:
  *   delete:
+ *     summary: Delete transaction
  *     tags: [Transactions]
  *     parameters:
  *       - in: path
@@ -148,7 +153,7 @@ router.delete(
   "/:id",
   isUserAuthenticated,
   isOwnerTransaction,
-  deleteTransaction,
+  deleteTransaction
 );
 
 module.exports = router;
