@@ -17,79 +17,47 @@ const router = express.Router();
 
 /**
  * @swagger
- * /transactions/userId:
+ * /transactions:
  *   get:
- *     tags:
- *       - Transactions
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All transactions retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
- */
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Transaction'
+*/
+router.get("/", isUserAuthenticated, getAllTransactions);
+
 router.get("/userId", isUserAuthenticated, getTransactionsByUserId);
 
 /**
  * @swagger
- * /transactions:
+ * /transactions/{id}:
  *   get:
- *     tags:
- *       - Transactions
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
- */
-router.get("/", isUserAuthenticated, getAllTransactions);
-
-/**
- * @swagger
- * /transactions/:id:
- *   get:
- *     tags:
- *       - Transactions
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: OK
- *     security:
- *       - bearerAuth: []
+ *         description: Transaction retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Transaction'
+ *       404:
+ *         description: Transaction not found
  */
 router.get("/:id", isUserAuthenticated, isOwnerTransaction, getTransaction);
 
@@ -97,25 +65,22 @@ router.get("/:id", isUserAuthenticated, isOwnerTransaction, getTransaction);
  * @swagger
  * /transactions:
  *   post:
- *     tags:
- *       - Transactions
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       201:
+ *         description: Transaction created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Error creating Transaction
  */
 router.post(
   "/",
@@ -126,53 +91,49 @@ router.post(
 
 /**
  * @swagger
- * /transactions/:id:
+ * /transactions/{id}:
  *   put:
- *     tags:
- *       - Transactions
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Transaction'
+ *     responses:
+ *       200:
+ *         description: Transaction updated
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Error updating transaction
  */
 router.put("/:id", isUserAuthenticated, isOwnerTransaction, updateTransaction);
 
 /**
  * @swagger
- * /transactions/:id:
+ * /transactions/{id}:
  *   delete:
- *     tags:
- *       - Transactions
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Transactions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     responses:
+ *       200:
+ *         description: Transaction deleted
+ *       404:
+ *         description: Transaction not found
  */
 router.delete("/:id", isUserAuthenticated, isOwnerTransaction, deleteTransaction);
 
