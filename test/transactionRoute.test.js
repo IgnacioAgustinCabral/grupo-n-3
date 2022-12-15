@@ -8,7 +8,7 @@ const api = request(app);
 const userStandarData = {
   firstName: "firstNameTest",
   lastName: "lastNameTest",
-  email: "user_test@gamail.com",
+  email: "user_test@gamil.com",
   password: "123456789",
   roleId: 2,
 };
@@ -17,6 +17,7 @@ const categoryData = {
   name: "categoryTest",
   description: "category test",
 };
+
 let userStandarToken = null;
 let userAdminToken = null;
 let userStandar = null;
@@ -32,7 +33,7 @@ beforeAll(async () => {
     roleId: userStandar.roleId,
     firstName: userStandar.firstName,
   });
-
+  
   userAdminToken = encode({
     id: 50,
     roleId: 1,
@@ -45,6 +46,7 @@ beforeAll(async () => {
     amount: 14.557779,
     date: "2022-09-05",
   };
+
 });
 
 afterAll(async () => {
@@ -59,6 +61,7 @@ describe("Transactions endpoints", () => {
     afterAll(async () => {
       await db.Transaction.destroy({ where: {}, force: true });
     });
+    
     it("should add one transaction valid", async () => {
       const response = await api
         .post("/transactions")
@@ -240,6 +243,7 @@ describe("Transactions endpoints", () => {
 
       expect(response.statusCode).toEqual(200);
       expect(response.body.body.transactions.length).toEqual(2);
+      
     });
   });
 });

@@ -1,22 +1,36 @@
-const express = require('express');
+const express = require("express");
 const {
-    allCategories,
-    getCategory,
-    postCategory,
-    updateCategory,
-    deleteCategory
-} = require('../controllers/categoryController');
-const { isUserAuthenticated, isAdmin } = require('../middlewares/jwt');
-const { validateRequestBySchema } = require('../middlewares/validateRequestSchema')
-const categorySchema = require('../schemas')
+  allCategories,
+  getCategory,
+  postCategory,
+  updateCategory,
+  deleteCategory,
+} = require("../controllers/categoryController");
+const { isUserAuthenticated } = require("../middlewares/jwt");
+const { isAdminRole } = require("../middlewares/isAdminRole");
+const {
+  validateRequestBySchema,
+} = require("../middlewares/validateRequestSchema");
+const categorySchema = require("../schemas");
 const router = express.Router();
 
-router.use(isUserAuthenticated)
+router.use(isUserAuthenticated);
 
-router.get('', allCategories);
-router.get('/:id', getCategory);
-router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
-router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCategory)
-router.delete('/:id', isAdmin, deleteCategory)
+router.get("", allCategories);
+router.get("/:id", getCategory);
+router.post(
+  "/",
+  isAdminRole,
+  validateRequestBySchema(categorySchema),
+  postCategory
+);
+router.put(
+  "/:id",
 
-module.exports = router
+  isAdminRole,
+  validateRequestBySchema(categorySchema),
+  updateCategory
+);
+router.delete("/:id", isAdminRole, deleteCategory);
+
+module.exports = router;
