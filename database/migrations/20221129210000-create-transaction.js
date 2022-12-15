@@ -20,7 +20,7 @@ module.exports = {
       },
       amount: {
         allowNull: false,
-        type: sequelize.DECIMAL,
+        type: sequelize.DECIMAL(10, 6),
       },
       userId: {
         allowNull: false,

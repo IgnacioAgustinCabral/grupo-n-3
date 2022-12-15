@@ -9,13 +9,21 @@ const {
   deleteOneTransaction,
   findTransactionsByUserId,
 } = require("../services/transactionServices");
+const { httpUnauthorizedError } = require("../middlewares/isAdminRole");
 
 const getAllTransactions = catchAsync(async (req, res, next) => {
-  let { page = 0 } = req.query;
+  let { page = 0, userId } = req.query;
+  userId = userId ? Number(userId) : undefined;
+
+  if (req.user.roleId === 2 && req.user.id !== userId) {
+    return next(httpUnauthorizedError);
+  }
+
   try {
-    const { count, rows, prevPage, nextPage } = await findAllTransaction(
-      Number(page)
-    );
+    const { count, rows, prevPage, nextPage } = await findAllTransaction({
+      page: Number(page),
+      userId: userId,
+    });
     endpointResponse({
       res,
       code: 200,
@@ -29,7 +37,7 @@ const getAllTransactions = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error retrieving index] - [transactions - GET]: ${error.message}`
+      `[Error retrieving index] - [transactions - GET]: ${error.message}`,
     );
     next(httpError);
   }
@@ -53,7 +61,7 @@ const postTransaction = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error retrieving index] - [transactions - POST]: ${error.message}`
+      `[Error retrieving index] - [transactions - POST]: ${error.message}`,
     );
     next(httpError);
   }
@@ -72,7 +80,7 @@ const getTransaction = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error retrieving transaction] - [transaction - GET]: ${error.message}`
+      `[Error retrieving transaction] - [transaction - GET]: ${error.message}`,
     );
     next(httpError);
   }
@@ -93,7 +101,7 @@ const updateTransaction = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error updating Transaction] - [transaction - PUT]: ${error.message}`
+      `[Error updating Transaction] - [transaction - PUT]: ${error.message}`,
     );
     next(httpError);
   }
@@ -111,7 +119,7 @@ const deleteTransaction = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error deleting Transaction] - [transaction - DELETE]: ${error.message}`
+      `[Error deleting Transaction] - [transaction - DELETE]: ${error.message}`,
     );
     next(httpError);
   }
@@ -129,7 +137,7 @@ const getTransactionsByUserId = catchAsync(async (req, res, next) => {
   } catch (error) {
     const httpError = createHttpError(
       error.statusCode,
-      `[Error retrieving Transaction] - [transaction - GET]: ${error.message}`
+      `[Error retrieving Transaction] - [transaction - GET]: ${error.message}`,
     );
     next(httpError);
   }
