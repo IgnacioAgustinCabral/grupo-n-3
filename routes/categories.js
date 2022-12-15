@@ -81,12 +81,7 @@ router.get('/:id', getCategory);
  *       500:
  *         description: Error creating category
  */
-router.post(
-    "/",
-    isAdminRole,
-    validateRequestBySchema(categorySchema),
-    postCategory
-  );
+router.post('/', isAdminRole, validateRequestBySchema(categorySchema), postCategory)
 
 /**
  * @swagger
@@ -114,12 +109,7 @@ router.post(
  *       500:
  *         description: Error updating category
  */
-router.put(
-    "/:id",  
-    isAdminRole,
-    validateRequestBySchema(categorySchema),
-    updateCategory
-  );
+router.put('/:id', isAdminRole, validateRequestBySchema(categorySchema), updateCategory)
 
 /**
  * @swagger
@@ -139,6 +129,6 @@ router.put(
  *       404:
  *         description: Category not found
  */
-router.delete("/:id", isAdminRole, deleteCategory);
+router.delete('/:id', isAdminRole, deleteCategory)
 
 module.exports = router
