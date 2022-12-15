@@ -22,6 +22,17 @@ const router = express.Router();
  *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: userId
+ *         required: false
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: All transactions retrieved

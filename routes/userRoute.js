@@ -17,6 +17,12 @@ const router = express.Router();
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: All users retrieved
