@@ -17,47 +17,43 @@ router.use(isUserAuthenticated)
  * @swagger
  * /categories:
  *   get:
- *     tags:
- *       - Categories
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: OK
+ *         description: All categories retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Category'
  */
 router.get('/', allCategories);
 
 /**
  * @swagger
- * /categories/:id:
+ * /categories/{id}:
  *   get:
- *     tags:
- *       - Categories
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Category retrieved
  *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Category'
+ *       404:
+ *         description: Category not found
  */
 router.get('/:id', getCategory);
 
@@ -65,77 +61,70 @@ router.get('/:id', getCategory);
  * @swagger
  * /categories:
  *   post:
- *     tags:
- *       - Categories
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Category'
+ *     responses:
+ *       201:
+ *         description: Category created
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Error creating category
  */
 router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
 
 /**
  * @swagger
- * /categories/:id:
+ * /categories/{id}:
  *   put:
- *     tags:
- *       - Categories
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Category'
+ *     responses:
+ *       200:
+ *         description: Category updated
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Error updating category
  */
 router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCategory)
 
 /**
  * @swagger
- * /categories/:id:
+ * /categories/{id}:
  *   delete:
- *     tags:
- *       - Categories
- *     responses:
- *       200:
- *         description: OK
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
  *     security:
  *       - bearerAuth: []
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *     responses:
+ *       200:
+ *         description: Category deleted
+ *       404:
+ *         description: Category not found
  */
 router.delete('/:id', isAdmin, deleteCategory)
 

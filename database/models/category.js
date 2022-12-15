@@ -22,13 +22,13 @@ module.exports = (sequelize, DataTypes) => {
  *       properties:
  *         id: 
  *           type: string
- *           example: 215
+ *           example: 1
  *         name: 
  *           type: string
- *           example: TODO  
+ *           example: Incomes  
  *         description:
  *           type: string
- *           example: TODO
+ *           example: ingresos
  */
 	Category.init(
 		{
