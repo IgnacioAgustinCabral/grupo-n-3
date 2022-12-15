@@ -23,22 +23,22 @@ module.exports = (sequelize, DataTypes) => {
  *       properties:
  *         id: 
  *           type: string
- *           example: 215
+ *           example: 1
  *         description: 
  *           type: string
- *           example: TODO  
+ *           example: pago de servicio de luz  
  *         date:
  *           type: date
- *           example: TODO
+ *           example: 2022-12-14T19:21:55.000Z
  *         amount:
  *           type: decimal
- *           example: TODO
+ *           example: 1200
  *         userId:
  *           type: integer
- *           example: TODO
+ *           example: 1
  *         categoryId:
  *           type: integer
- *           example: TODO
+ *           example: 2
  */
   Transaction.init(
     {
