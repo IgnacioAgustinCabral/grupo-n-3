@@ -94,7 +94,7 @@ router.post(
  * @swagger
  * /transactions/{id}:
  *   put:
- *     tags: [Transaction]
+ *     tags: [Transactions]
  *     security:
  *       - bearerAuth: []
  *     parameters:
