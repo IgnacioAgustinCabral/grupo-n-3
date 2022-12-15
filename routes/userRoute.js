@@ -12,8 +12,9 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users:
+ * /users?page=:
  *   get:
+ *     summary: Get all users with pagination
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -39,6 +40,7 @@ router.get("/", verifyIfOwnerOrAdmin, getAllUsers);
  * @swagger
  * /users/{id}:
  *   get:
+ *     summary: Get one user
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -64,7 +66,10 @@ router.get("/:id", verifyIfOwnerOrAdmin, getUser);
  * @swagger
  * /users/create:
  *   post:
+ *     summary: Create a user
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -85,6 +90,7 @@ router.post("/create", uploadAvatar, createUser);
  * @swagger
  * /users/{id}:
  *   put:
+ *     summary: Update user
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -112,7 +118,8 @@ router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
 /**
  * @swagger
  * /users/delete/{id}:
- *   put:
+ *   delete:
+ *     summary: Delete user
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -127,6 +134,6 @@ router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
  *       404:
  *         description: User not found
  */
-router.put("/delete/:id", verifyIfOwnerOrAdmin, deleteUser);
+router.delete("/delete/:id", verifyIfOwnerOrAdmin, deleteUser);
 
 module.exports = router;

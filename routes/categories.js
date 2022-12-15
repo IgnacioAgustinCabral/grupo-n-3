@@ -20,6 +20,7 @@ router.use(isUserAuthenticated);
  * @swagger
  * /categories:
  *   get:
+ *     summary: Get all categories
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -33,12 +34,13 @@ router.use(isUserAuthenticated);
  *             items:
  *               $ref: '#/components/schemas/Category'
  */
-router.get('/', allCategories);
+router.get("/", allCategories);
 
 /**
  * @swagger
  * /categories/{id}:
  *   get:
+ *     summary: Get one category
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -58,12 +60,13 @@ router.get('/', allCategories);
  *       404:
  *         description: Category not found
  */
-router.get('/:id', getCategory);
+router.get("/:id", getCategory);
 
 /**
  * @swagger
  * /categories:
  *   post:
+ *     summary: Create category
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -81,12 +84,18 @@ router.get('/:id', getCategory);
  *       500:
  *         description: Error creating category
  */
-router.post('/', isAdminRole, validateRequestBySchema(categorySchema), postCategory)
+router.post(
+  "/",
+  isAdminRole,
+  validateRequestBySchema(categorySchema),
+  postCategory
+);
 
 /**
  * @swagger
  * /categories/{id}:
  *   put:
+ *     summary: Update one category
  *     tags: [Categories]
  *     security:
  *       - bearerAuth: []
@@ -109,12 +118,18 @@ router.post('/', isAdminRole, validateRequestBySchema(categorySchema), postCateg
  *       500:
  *         description: Error updating category
  */
-router.put('/:id', isAdminRole, validateRequestBySchema(categorySchema), updateCategory)
+router.put(
+  "/:id",
+  isAdminRole,
+  validateRequestBySchema(categorySchema),
+  updateCategory
+);
 
 /**
  * @swagger
  * /categories/{id}:
  *   delete:
+ *     summary: Delete one category
  *     tags: [Categories]
  *     parameters:
  *       - in: path
@@ -129,6 +144,6 @@ router.put('/:id', isAdminRole, validateRequestBySchema(categorySchema), updateC
  *       404:
  *         description: Category not found
  */
-router.delete('/:id', isAdminRole, deleteCategory)
+router.delete("/:id", isAdminRole, deleteCategory);
 
-module.exports = router
+module.exports = router;
