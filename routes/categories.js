@@ -1,17 +1,20 @@
-const express = require('express');
+const express = require("express");
 const {
-    allCategories,
-    getCategory,
-    postCategory,
-    updateCategory,
-    deleteCategory
-} = require('../controllers/categoryController');
-const { isUserAuthenticated, isAdmin } = require('../middlewares/jwt');
-const { validateRequestBySchema } = require('../middlewares/validateRequestSchema')
-const categorySchema = require('../schemas')
+  allCategories,
+  getCategory,
+  postCategory,
+  updateCategory,
+  deleteCategory,
+} = require("../controllers/categoryController");
+const { isUserAuthenticated } = require("../middlewares/jwt");
+const { isAdminRole } = require("../middlewares/isAdminRole");
+const {
+  validateRequestBySchema,
+} = require("../middlewares/validateRequestSchema");
+const categorySchema = require("../schemas");
 const router = express.Router();
 
-router.use(isUserAuthenticated)
+router.use(isUserAuthenticated);
 
 /**
  * @swagger
@@ -78,7 +81,12 @@ router.get('/:id', getCategory);
  *       500:
  *         description: Error creating category
  */
-router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
+router.post(
+    "/",
+    isAdminRole,
+    validateRequestBySchema(categorySchema),
+    postCategory
+  );
 
 /**
  * @swagger
@@ -106,7 +114,12 @@ router.post('/', isAdmin, validateRequestBySchema(categorySchema), postCategory)
  *       500:
  *         description: Error updating category
  */
-router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCategory)
+router.put(
+    "/:id",  
+    isAdminRole,
+    validateRequestBySchema(categorySchema),
+    updateCategory
+  );
 
 /**
  * @swagger
@@ -126,6 +139,6 @@ router.put('/:id', isAdmin, validateRequestBySchema(categorySchema), updateCateg
  *       404:
  *         description: Category not found
  */
-router.delete('/:id', isAdmin, deleteCategory)
+router.delete("/:id", isAdminRole, deleteCategory);
 
 module.exports = router
