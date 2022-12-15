@@ -106,7 +106,7 @@ router.put("/:id", verifyIfOwnerOrAdmin, updateUser);
 /**
  * @swagger
  * /users/delete/{id}:
- *   delete:
+ *   put:
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
