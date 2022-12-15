@@ -5,7 +5,6 @@ const {
   getTransaction,
   updateTransaction,
   deleteTransaction,
-  getTransactionsByUserId,
 } = require("../controllers/transactionControllers");
 const { isOwnerTransaction } = require("../middlewares/isOwnerTransaction");
 const { isUserAuthenticated } = require("../middlewares/jwt");

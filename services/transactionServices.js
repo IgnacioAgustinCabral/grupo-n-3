@@ -1,7 +1,7 @@
 const { Transaction } = require("../database/models");
 const { ErrorObject } = require("../helpers/error");
 
-async function findAllTransaction(page) {
+async function findAllTransaction({ page, userId }) {
   let pageUrl = "http://localhost:3000/transactions?page=",
     prevPage = null,
     nextPage = null,
@@ -9,9 +9,12 @@ async function findAllTransaction(page) {
     offset = page * limit, //ex: page 0 * limit 10 = 0 - show since register 0-
     pages = 0; // quantity of pages
 
+  let where = userId ? { userId } : {};
+
   const { count, rows } = await Transaction.findAndCountAll({
     offset,
     limit,
+    where,
   });
 
   // ex: 12 registers / 10 limit = 2 pages in total - 1 because page initial value is 0
