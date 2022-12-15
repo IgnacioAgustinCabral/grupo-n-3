@@ -142,4 +142,82 @@ router.put('/:id', isAdminRole, validateRequestBySchema(categorySchema), updateC
  */
 router.delete('/:id', isAdminRole, deleteCategory)
 
-module.exports = router;
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     tags:
+ *       - Categories
+ *     responses:
+ *       200:
+ *         description: OK
+ *     security:
+ *       - bearerAuth: []
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
+router.post('/', isAdminRole, validateRequestBySchema(categorySchema), postCategory)
+
+/**
+ * @swagger
+ * /categories/:id:
+ *   put:
+ *     tags:
+ *       - Categories
+ *     responses:
+ *       200:
+ *         description: OK
+ *     security:
+ *       - bearerAuth: []
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
+router.put('/:id', isAdminRole, validateRequestBySchema(categorySchema), updateCategory)
+
+/**
+ * @swagger
+ * /categories/:id:
+ *   delete:
+ *     tags:
+ *       - Categories
+ *     responses:
+ *       200:
+ *         description: OK
+ *     security:
+ *       - bearerAuth: []
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
+router.delete('/:id', isAdminRole, deleteCategory)
+
+module.exports = router
