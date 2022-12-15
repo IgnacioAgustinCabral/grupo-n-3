@@ -31,10 +31,8 @@ const router = express.Router();
  *             type: array
  *             items:
  *               $ref: '#/components/schemas/Transaction'
-*/
+ */
 router.get("/", isUserAuthenticated, getAllTransactions);
-
-router.get("/userId", isUserAuthenticated, getTransactionsByUserId);
 
 /**
  * @swagger
@@ -135,6 +133,11 @@ router.put("/:id", isUserAuthenticated, isOwnerTransaction, updateTransaction);
  *       404:
  *         description: Transaction not found
  */
-router.delete("/:id", isUserAuthenticated, isOwnerTransaction, deleteTransaction);
+router.delete(
+  "/:id",
+  isUserAuthenticated,
+  isOwnerTransaction,
+  deleteTransaction,
+);
 
 module.exports = router;
